@@ -9,7 +9,7 @@ import { fileURLToPath, URL } from 'node:url';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/project-manager/",
+  base: '/project-manager/',
   plugins: [
     Vue({
       template: { transformAssetUrls },
@@ -43,6 +43,11 @@ export default defineConfig({
     preprocessorOptions: {
       sass: {
         api: 'modern-compiler',
+      },
+      scss: {
+        additionalData: `
+          @use "@/styles/scss/main.scss";
+        `,
       },
     },
   },

@@ -11,6 +11,16 @@ import { setLocale } from 'yup';
 import { ptShort } from 'yup-locale-pt';
 import { registerPlugins } from '@/plugins';
 
+import '@fontsource/encode-sans-expanded/100.css';
+import '@fontsource/encode-sans-expanded/200.css';
+import '@fontsource/encode-sans-expanded/300.css';
+import '@fontsource/encode-sans-expanded/400.css';
+import '@fontsource/encode-sans-expanded/500.css';
+import '@fontsource/encode-sans-expanded/600.css';
+import '@fontsource/encode-sans-expanded/700.css';
+import '@fontsource/encode-sans-expanded/800.css';
+import '@fontsource/encode-sans-expanded/900.css';
+
 /*
   yup documentation:
   https://github.com/jquense/yup

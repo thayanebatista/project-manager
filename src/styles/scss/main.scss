@@ -7,6 +7,6 @@
 //   variables go here
 // );
 
-@import '_variables.scss';
-@import '_globals.scss';
-@import '_overrides.scss';
+@use '_variables.scss';
+@use '_globals.scss';
+@use '_overrides.scss';
