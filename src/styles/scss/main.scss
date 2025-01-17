@@ -1,0 +1,12 @@
+/*
+  Use this to overwrite your vuetify variables
+  see https://vuetifyjs.com/en/features/sass-variables/
+*/
+
+// @use 'vuetify' with (
+//   variables go here
+// );
+
+@import '_variables.scss';
+@import '_globals.scss';
+@import '_overrides.scss';
