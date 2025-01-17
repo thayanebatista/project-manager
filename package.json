@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vue-tsc --noEmit && vite build",
-    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
     "preview": "vite preview",
     "lint": "eslint ."
