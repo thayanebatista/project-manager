@@ -4,7 +4,6 @@
 
 // Composables
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { red } from 'vuetify/util/colors';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -19,7 +18,7 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 });
 
