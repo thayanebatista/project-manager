@@ -1,5 +1,8 @@
 {
   "pages": {
+    "newProject": {
+      "title": "Novo projeto"
+    }
   },
   "components": {
     "appBar": {
@@ -18,6 +21,15 @@
   },
   "errors": {
     "notFound": "Não encontrado",
+    "requiredField": "Obrigatório",
+    "invalidDate": "Selecione uma data válida",
+    "atLeastOneWord": "Por favor, digite ao menos uma palavra",
+    "atLeastTwoWords": "Por favor, digite ao menos duas palavras",
     "default": "Ops, algo deu errado, tente novamente mais tarde"
+  },
+  "common": {
+    "back": "Voltar",
+    "cancel": "Cancelar",
+    "save": "Salvar"
   }
 }

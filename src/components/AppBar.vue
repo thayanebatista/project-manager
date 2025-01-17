@@ -6,7 +6,7 @@
     <v-app-bar-title class="app-bar-title">
       <div class="d-flex align-center ga-2">
         <AppBarLogo />
-        <span class="title text-wrap text-title">
+        <span class="app-title text-wrap text-title">
           {{ t('components.appBar.title') }}
         </span>
       </div>
@@ -35,10 +35,10 @@
         align-items: center;
       }
       .app-bar-title {
-        .title {
+        .app-title {
           font-family: 'Encode Sans Expanded', sans-serif;
           font-size: 18px;
-          font-weight: 400;
+          font-weight: 300;
           line-height: 22.5px;
           width: 110px;
         }

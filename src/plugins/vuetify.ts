@@ -12,6 +12,7 @@ import '@mdi/font/css/materialdesignicons.css';
 // Composables
 import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
+import { VDateInput } from 'vuetify/labs/VDateInput';
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
@@ -20,10 +21,15 @@ export default createVuetify({
     themes: {
       light: {
         colors: {
+          primary: '#695CCD',
           background: '#F8F4F4',
           'app-bar-background': '#1C1930',
           'button-background': '#695CCD',
           'no-project-title': '#1F1283',
+          'new-project-border': '#DCDCDC',
+          'imput-label': '#695CCD',
+          'required-field': '#717171',
+          'page-title': '#1F1283',
         },
       },
     },
@@ -34,5 +40,8 @@ export default createVuetify({
     sets: {
       mdi,
     },
+  },
+  components: {
+    VDateInput,
   },
 });

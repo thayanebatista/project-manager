@@ -2,6 +2,7 @@ import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginVue from "eslint-plugin-vue";
 import pluginYaml from "eslint-plugin-yaml";
+import vuetify from 'eslint-plugin-vuetify';
 import pluginImport from "eslint-plugin-import";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginVuetify from "eslint-plugin-vuetify";
@@ -16,6 +17,7 @@ export default tseslint.config(
   ...tseslint.configs.stylistic,
   ...pluginVue.configs["flat/strongly-recommended"],
   ...pluginVue.configs["flat/recommended"],
+  ...vuetify.configs['flat/base'],
   {
     ignores: [
       ".vscode/",

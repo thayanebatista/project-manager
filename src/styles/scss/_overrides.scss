@@ -17,3 +17,14 @@
   font-weight: 400;
   line-height: 22px;
 }
+
+:deep(.text-caption) {
+  font-family: 'Encode Sans Semi Expanded', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+:deep(.v-col) {
+  padding: 0;
+}
