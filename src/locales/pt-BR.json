@@ -1,0 +1,13 @@
+{
+  "pages": {
+  },
+  "components": {
+    "PhotoUploader": {
+      "openFilePicker": "Selecionar imagem"
+    }
+  },
+  "errors": {
+    "notFound": "Não encontrado",
+    "default": "Ops, algo deu errado, tente novamente mais tarde"
+  }
+}
