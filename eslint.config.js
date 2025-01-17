@@ -126,7 +126,7 @@ export default tseslint.config(
           "multiline": "below"
         }
       ],
-      "no-unused-vars": "off", // this leads to unused vars warnings on type declarations
+      "no-unused-vars": "off",
       // const lines: string[] = []; style
       "@typescript-eslint/array-type": [
         "error",
