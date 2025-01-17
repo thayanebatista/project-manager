@@ -4,17 +4,27 @@
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
 
-// Plugins
-import { registerPlugins } from '@/plugins'
+import App from './App.vue';
 
-// Components
-import App from './App.vue'
+import { createApp } from 'vue';
+import { setLocale } from 'yup';
+import { ptShort } from 'yup-locale-pt';
+import { registerPlugins } from '@/plugins';
 
-// Composables
-import { createApp } from 'vue'
+/*
+  yup documentation:
+  https://github.com/jquense/yup
 
-const app = createApp(App)
+  yup locale documentation:
+  https://github.com/arfurlaneto/yup-locale-pt
+*/
 
-registerPlugins(app)
+setLocale({
+  ...ptShort,
+});
 
-app.mount('#app')
+const app = createApp(App);
+
+registerPlugins(app);
+
+app.mount('#app');
