@@ -36,6 +36,7 @@
       }
       .app-bar-title {
         .title {
+          font-family: 'Encode Sans Expanded', sans-serif;
           font-size: 18px;
           font-weight: 400;
           line-height: 22.5px;
