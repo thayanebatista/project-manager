@@ -1,12 +1,17 @@
-html, body {
-  font-family: 'Encode Sans Expanded', sans-serif;
+body {
+  font-family: 'Encode Sans Semi Expanded', sans-serif;
 }
 
-.text-title {
-  font-size: 18px;
+.text-default-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: center;
+}
+
+.text-default-subtitle {
+  font-size: 16px;
   font-weight: 400;
-  line-height: 22.5px;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
+  line-height: 22px;
+  text-align: center;
 }

@@ -1,0 +1,19 @@
+:deep(.v-btn) {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+:deep(.v-card-title) {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+:deep(.v-card-subtitle) {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}

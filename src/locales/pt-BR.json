@@ -2,6 +2,16 @@
   "pages": {
   },
   "components": {
+    "appBar": {
+      "title": "Gerenciador de projetos"
+    },
+    "empty": {
+      "title": "Nenhum projeto criado",
+      "subtitle": " Clique no botão abaixo para criar o primeiro e gerenciá-lo.",
+      "action": {
+        "newProject": "Novo projeto"
+      }
+    },
     "PhotoUploader": {
       "openFilePicker": "Selecionar imagem"
     }

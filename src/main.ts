@@ -20,6 +20,15 @@ import '@fontsource/encode-sans-expanded/600.css';
 import '@fontsource/encode-sans-expanded/700.css';
 import '@fontsource/encode-sans-expanded/800.css';
 import '@fontsource/encode-sans-expanded/900.css';
+import '@fontsource/encode-sans-semi-expanded/100.css';
+import '@fontsource/encode-sans-semi-expanded/200.css';
+import '@fontsource/encode-sans-semi-expanded/300.css';
+import '@fontsource/encode-sans-semi-expanded/400.css';
+import '@fontsource/encode-sans-semi-expanded/500.css';
+import '@fontsource/encode-sans-semi-expanded/600.css';
+import '@fontsource/encode-sans-semi-expanded/700.css';
+import '@fontsource/encode-sans-semi-expanded/800.css';
+import '@fontsource/encode-sans-semi-expanded/900.css';
 
 /*
   yup documentation:

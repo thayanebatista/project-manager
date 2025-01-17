@@ -22,6 +22,8 @@ export default createVuetify({
         colors: {
           background: '#F8F4F4',
           'app-bar-background': '#1C1930',
+          'button-background': '#695CCD',
+          'no-project-title': '#1F1283',
         },
       },
     },

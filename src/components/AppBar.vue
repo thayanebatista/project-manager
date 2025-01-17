@@ -7,7 +7,7 @@
       <div class="d-flex align-center ga-2">
         <AppBarLogo />
         <span class="title text-wrap text-title">
-          Gerenciador de projetos
+          {{ t('components.appBar.title') }}
         </span>
       </div>
     </v-app-bar-title>
@@ -21,6 +21,10 @@
 <script setup lang="ts">
   import SearchIcon from '@/components/icons/SearchIcon.vue';
   import AppBarLogo from '@/components/icons/AppBarLogoIcon.vue';
+
+  import { useI18n } from '@/composables/useI18n';
+
+  const { t } = useI18n();
 </script>
 <style lang="scss" scoped>
   .app-bar {
@@ -32,6 +36,10 @@
       }
       .app-bar-title {
         .title {
+          font-family: 'Encode Sans Expanded', sans-serif;
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 22.5px;
           width: 110px;
         }
       }
