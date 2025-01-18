@@ -1,7 +1,4 @@
 <template>
-  <div>
-    <AppBar />
-  </div>
   <v-container class="h-100 py-5 px-0">
     <div
       v-if="!projects.length"
@@ -12,10 +9,16 @@
   </v-container>
 </template>
 <script lang="ts" setup>
-  import AppBar from '@/components/AppBar.vue';
   import Empty from '@/components/projects/Empty.vue';
 
-  import { ref } from 'vue';
+  import { onMounted } from 'vue';
+  import { storeToRefs } from 'pinia';
+  import { useProjectsStore } from '@/store/projects';
 
-  const projects = ref([]);
+  const projectsStore = useProjectsStore();
+  const { projects } = storeToRefs(projectsStore);
+
+  onMounted(() => {
+    console.log(projects.value);
+  });
 </script>

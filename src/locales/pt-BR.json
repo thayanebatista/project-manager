@@ -1,5 +1,8 @@
 {
   "pages": {
+    "newProject": {
+      "title": "Novo projeto"
+    }
   },
   "components": {
     "appBar": {
@@ -13,11 +16,23 @@
       }
     },
     "PhotoUploader": {
-      "openFilePicker": "Selecionar imagem"
+      "subtitle": "Escolha uma imagem .jpg ou .png no seu dispositivo",
+      "openFilePicker": "Selecionar"
     }
   },
   "errors": {
     "notFound": "Não encontrado",
+    "requiredField": "Obrigatório",
+    "invalidDate": "Selecione uma data válida",
+    "atLeastOneWord": "Por favor, digite ao menos uma palavra",
+    "atLeastTwoWords": "Por favor, digite ao menos duas palavras",
     "default": "Ops, algo deu errado, tente novamente mais tarde"
+  },
+  "common": {
+    "required": "(Obrigatório)",
+    "back": "Voltar",
+    "cancel": "Cancelar",
+    "ok": "OK",
+    "save": "Salvar"
   }
 }

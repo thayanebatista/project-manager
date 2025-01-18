@@ -10,6 +10,7 @@
       <AppButton
         name="new-project"
         :text="t('components.empty.action.newProject')"
+        @click="redirectTo('NewProject')"
       >
         <template #prepend>
           <PlusCircleIcon />
@@ -22,7 +23,13 @@
   import AppButton from '@/components/AppButton.vue';
   import PlusCircleIcon from '@/components/icons/PlusCircleIcon.vue';
 
+  import { useRouter } from 'vue-router';
   import { useI18n } from '@/composables/useI18n';
 
   const { t } = useI18n();
+  const router = useRouter();
+
+  const redirectTo = (routeName: string) => {
+    router.push({ name: routeName });
+  };
 </script>

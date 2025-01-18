@@ -5,6 +5,7 @@
     variant="flat"
     :height="height || 52"
     :width="width || 230"
+    :disabled="disabled"
     color="button-background"
     class="px-4"
   >
@@ -23,5 +24,6 @@
     text?: string;
     height?: number;
     width?: number;
+    disabled?: boolean;
   }>();
 </script>

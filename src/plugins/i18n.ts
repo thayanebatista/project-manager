@@ -5,7 +5,7 @@ import { createI18n } from 'vue-i18n';
 type MessageSchema = typeof ptBR;
 
 export const i18n = createI18n<[MessageSchema], 'pt-BR'>({
-  locale: import.meta.env.VITE_APP_I18N_LOCALE || 'pt-BR',
+  locale: 'pt-BR',
   legacy: false,
   messages: {
     'pt-BR': ptBR,
