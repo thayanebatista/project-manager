@@ -20,7 +20,20 @@
       "openFilePicker": "Selecionar"
     },
     "projectsList": {
-      "title": "Projetos"
+      "title": "Projetos",
+      "filterFav": "Apenas favoritos",
+      "filter": {
+        "alphabetical": "Ordem alfabetica",
+        "recentlyStarted": "Iniciados mais recente",
+        "closestDeadline": "Prazo mais próximo"
+      }
+    },
+    "projectCard": {
+      "client": "Cliente: ",
+      "actions": {
+        "edit": "Editar",
+        "delete": "Remover"
+      }
     }
   },
   "errors": {

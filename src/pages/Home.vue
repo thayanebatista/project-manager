@@ -7,7 +7,10 @@
       <Empty />
     </div>
     <div v-else>
-      <ProjectsList :projects="projects" />
+      <ProjectsList
+        :projects="projects"
+        @change-filter="filterList"
+      />
     </div>
   </v-container>
 </template>
@@ -15,14 +18,14 @@
   import Empty from '@/components/projects/Empty.vue';
   import ProjectsList from '@/components/projects/ProjectsList.vue';
 
-  import { onMounted } from 'vue';
   import { storeToRefs } from 'pinia';
+  import { IFilter } from '@/interfaces/project';
   import { useProjectsStore } from '@/store/projects';
 
   const projectsStore = useProjectsStore();
   const { projects } = storeToRefs(projectsStore);
 
-  onMounted(() => {
-    console.log(projects.value);
-  });
+  const filterList = (filter: IFilter) => {
+    projectsStore.filterList(filter.id);
+  };
 </script>

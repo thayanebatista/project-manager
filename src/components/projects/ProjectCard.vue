@@ -15,7 +15,7 @@
       </span>
       <div>
         <span class="card-title-client text-card-title">
-          {{ t('Cliente: ') }}
+          {{ t('components.projectCard.client') }}
         </span>
         <span class="card-title-client-name text-card-subtitle">
           {{ project.client }}
@@ -33,7 +33,7 @@
       <div class="d-flex align-center ga-4">
         <CalendarEndIcon />
         <span class="text-card-subtitle">
-          {{ formatDate(project.startDate) }}
+          {{ formatDate(project.endDate) }}
         </span>
       </div>
     </v-card-text>
@@ -52,7 +52,7 @@
     project: IProject;
   }>();
   const { t } = useI18n();
-  const formatDate = (date: string) => {
+  const formatDate = (date: Date) => {
     // eslint-disable-next-line @stylistic/quotes
     return format(new Date(date), "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
   };

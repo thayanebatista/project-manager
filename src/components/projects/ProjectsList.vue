@@ -17,7 +17,7 @@
           min-width="150"
           color="toggle"
           density="compact"
-          label="Apenas Favoritos"
+          :label="t('components.projectsList.filterFav')"
         />
         <v-select
           v-model="filter"
@@ -30,7 +30,9 @@
           min-width="100"
           max-width="250"
           hide-details
+          return-object
           :menu-icon="ChevronDownIcon"
+          @update:model-value="emit('changeFilter', filter)"
         />
         <AppButton
           name="new-project"
@@ -66,31 +68,37 @@
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { useI18n } from '@/composables/useI18n';
-  import { IProject } from '@/interfaces/project';
+  import { filterEnum, IFilter, IProject } from '@/interfaces/project';
 
   defineProps<{
     projects: IProject[];
   }>();
 
+  const emit = defineEmits<{
+    changeFilter: [filter: IFilter];
+  }>();
+
   const { t } = useI18n();
   const router = useRouter();
-  const toggleFav = ref();
-  const FilterOptions = [
-    {
-      id: 'asc',
-      name: 'Ordem alfabetica',
-    },
-    {
-      id: 'new',
-      name: 'Iniciados mais recente',
-    },
-    {
-      id: 'endDate',
-      name: 'Prazo mais próximo',
-    },
-  ];
+  const toggleFav = ref(false);
 
-  const filter = ref(FilterOptions[0]);
+  const FilterOptions = ref<IFilter[]>([
+    {
+      id: filterEnum.byAlphabetical,
+      name: t('components.projectsList.filter.alphabetical'),
+    },
+    {
+      id: filterEnum.bystartDate,
+      name: t('components.projectsList.filter.recentlyStarted'),
+    },
+    {
+      id: filterEnum.byEndDate,
+      name: t('components.projectsList.filter.closestDeadline'),
+    },
+  ]);
+
+  const filter = ref(FilterOptions.value[0]);
+
   const redirectTo = (routeName: string) => {
     router.push({ name: routeName });
   };
