@@ -6,7 +6,7 @@
     <v-app-bar-title class="app-bar-title">
       <div class="d-flex align-center ga-2">
         <AppBarLogo />
-        <span class="app-title text-wrap text-title">
+        <span class="app-title text-wrap">
           {{ t('components.appBar.title') }}
         </span>
       </div>
