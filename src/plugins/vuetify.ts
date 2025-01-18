@@ -30,6 +30,8 @@ export default createVuetify({
           'required-field': '#717171',
           title: '#1F1283',
           toggle: '#FFB23D',
+          'card-title': '#717171',
+          'card-subtitle': '#717171',
         },
       },
     },

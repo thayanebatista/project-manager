@@ -6,7 +6,7 @@ export interface INewProjectForm {
   image?: File | null;
 }
 
-export interface IProjects {
+export interface IProject {
   name: string;
   client: string;
   startDate: string;

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="h-100 py-5 px-0">
+  <v-container class="d-flex flex-column h-100 py-5">
     <div
       v-if="!projects.length"
       class="h-100"
