@@ -6,10 +6,14 @@
     >
       <Empty />
     </div>
+    <div v-else>
+      <ProjectsList :projects="projects" />
+    </div>
   </v-container>
 </template>
 <script lang="ts" setup>
   import Empty from '@/components/projects/Empty.vue';
+  import ProjectsList from '@/components/projects/ProjectsList.vue';
 
   import { onMounted } from 'vue';
   import { storeToRefs } from 'pinia';

@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia';
-import { INewProjectForm } from '@/interfaces/project';
+import { IProjects } from '@/interfaces/project';
 
 export const useProjectsStore = defineStore('projects', {
   persist: true,
   state: (): {
-    projects: INewProjectForm[];
-    project: INewProjectForm;
+    projects: IProjects[];
+    project: IProjects;
   } => ({
     projects: [],
     project: null,
   }),
   actions: {
-    createNewProject(project: INewProjectForm) {
+    createNewProject(project: IProjects) {
       this.projects.push(project);
     },
   },

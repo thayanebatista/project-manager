@@ -18,6 +18,9 @@
     "PhotoUploader": {
       "subtitle": "Escolha uma imagem .jpg ou .png no seu dispositivo",
       "openFilePicker": "Selecionar"
+    },
+    "projectsList": {
+      "title": "Projetos"
     }
   },
   "errors": {
