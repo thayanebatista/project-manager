@@ -3,4 +3,5 @@ export interface INewProjectForm {
   client: string;
   startDate: string;
   endDate: string;
+  image?: File | null;
 }

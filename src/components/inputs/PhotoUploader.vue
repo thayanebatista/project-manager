@@ -4,7 +4,7 @@
       {{ label }}
     </span>
     <div
-      class="photo-uploader d-flex justify-center aling-center border border border-dashed rounded"
+      class="photo-uploader d-flex flex-column justify-center aling-center border border border-dashed rounded"
     >
       <v-card
         v-if="!avatar"
@@ -15,13 +15,16 @@
           <UploadIcon />
         </v-card-title>
         <v-card-subtitle>
-          <span> Escolha uma imagem .jpg ou .png no seu dispositivo </span>
+          <span>
+            {{ t('components.PhotoUploader.subtitle') }}
+          </span>
         </v-card-subtitle>
         <v-card-actions>
           <AppButton
             name="upload"
-            text="Selecionar"
+            :text="t('components.PhotoUploader.openFilePicker')"
             variant="outlined"
+            style="background-color: white"
             @click="fileInput?.click()"
           />
         </v-card-actions>
@@ -63,7 +66,7 @@
         v-if="errors.length"
         class="text-center pa-2 text-red"
       >
-        {{ errors }}
+        {{ errorMessage }}
       </span>
     </div>
   </div>
@@ -74,20 +77,18 @@
   import TrashIcon from '@/components/icons/TrashIcon.vue';
   import UploadIcon from '@/components/icons/UploadIcon.vue';
 
+  import { useField } from 'vee-validate';
   import { ref, watch, defineEmits } from 'vue';
+  import { useI18n } from '@/composables/useI18n';
 
+  const { t } = useI18n();
+
+  const { setValue, errorMessage, errors } = useField<File | null>('image');
   const emit = defineEmits(['changePhoto']);
 
-  defineProps({
-    label: {
-      type: String,
-      required: true,
-    },
-    errors: {
-      type: Array,
-      default: () => [],
-    },
-  });
+  defineProps<{
+    label?: string;
+  }>();
 
   const file = ref<File | null>(null);
   const avatar = ref<string | null>(null);
@@ -96,6 +97,7 @@
   watch(file, value => {
     if (value) {
       avatar.value = URL.createObjectURL(value);
+      setValue(value);
       emit('changePhoto', value);
     }
   });

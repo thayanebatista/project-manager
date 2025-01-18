@@ -16,7 +16,8 @@
       }
     },
     "PhotoUploader": {
-      "openFilePicker": "Selecionar imagem"
+      "subtitle": "Escolha uma imagem .jpg ou .png no seu dispositivo",
+      "openFilePicker": "Selecionar"
     }
   },
   "errors": {
@@ -28,8 +29,10 @@
     "default": "Ops, algo deu errado, tente novamente mais tarde"
   },
   "common": {
+    "required": "(Obrigatório)",
     "back": "Voltar",
     "cancel": "Cancelar",
+    "ok": "OK",
     "save": "Salvar"
   }
 }

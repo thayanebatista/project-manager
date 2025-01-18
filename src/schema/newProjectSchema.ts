@@ -1,4 +1,4 @@
-import { object, string } from 'yup';
+import { mixed, object, string } from 'yup';
 import { formatDate, isValid, parseISO } from 'date-fns';
 import { i18nGlobalInstance } from '@/plugins/i18n';
 
@@ -44,4 +44,5 @@ export const newProjectSchema = object({
         return isValid(start) && isValid(end) && end >= start;
       },
     ),
+  image: mixed().optional(),
 });

@@ -11,7 +11,14 @@
 <script lang="ts" setup>
   import Empty from '@/components/projects/Empty.vue';
 
-  import { ref } from 'vue';
+  import { onMounted } from 'vue';
+  import { storeToRefs } from 'pinia';
+  import { useProjectsStore } from '@/store/projects';
 
-  const projects = ref([]);
+  const projectsStore = useProjectsStore();
+  const { projects } = storeToRefs(projectsStore);
+
+  onMounted(() => {
+    console.log(projects.value);
+  });
 </script>

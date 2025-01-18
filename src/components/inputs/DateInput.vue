@@ -8,23 +8,25 @@
         v-if="required"
         class="text-required-field text-caption"
       >
-        (Obrigatório)
+        {{ t('common.required') }}
       </span>
     </div>
     <v-date-input
       v-model="field"
-      :value="formattedDate"
+      :display-value="formattedDate"
+      clearable
       prepend-icon=""
       placeholder="dd/mm/aaaa"
       density="compact"
       variant="outlined"
       color="primary"
       bg-color="white"
-      :append-inner-icon="icon"
+      :append-inner-icon="CalendarIcon"
       :rules="setFieldRules"
       :disabled="disabled"
+      :cancel-text="t('common.cancel')"
+      :ok-text="t('common.ok')"
       :error-messages="errorMessage"
-      class="imput"
     />
   </div>
 </template>
@@ -43,7 +45,6 @@
     initialValue?: string;
   }>();
 
-  const icon = CalendarIcon;
   const { t } = useI18n();
 
   const { value: field, errorMessage } = useField(props.name, undefined, {
