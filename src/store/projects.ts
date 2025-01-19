@@ -7,8 +7,14 @@ export const useProjectsStore = defineStore('projects', {
   persist: true,
   state: (): {
     projects: IProject[];
+    filteredProjects: IProject[] | null;
+    searchTerm: string;
+    recentSearches: { prependIcon: string; name: string }[];
   } => ({
     projects: [],
+    filteredProjects: null,
+    searchTerm: '',
+    recentSearches: [],
   }),
   actions: {
     createNewProject(project: IProject) {
@@ -52,6 +58,21 @@ export const useProjectsStore = defineStore('projects', {
     },
     deleteProject(projectId: string) {
       this.projects = this.projects.filter(project => project.id !== projectId);
+    },
+    setFilteredProjects(filteredProjects: IProject[], search?: string) {
+      this.$patch({
+        filteredProjects,
+        searchTerm: search,
+      });
+    },
+    setRecentSearch(search: { prependIcon: string; name: string }) {
+      if (
+        !this.recentSearches.some(
+          recent => recent.name.toLowerCase() === search.name.toLowerCase(),
+        )
+      ) {
+        this.recentSearches = [search, ...this.recentSearches.slice(0, 4)];
+      }
     },
   },
 });

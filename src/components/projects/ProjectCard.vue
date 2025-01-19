@@ -50,9 +50,10 @@
       </div>
     </v-img>
     <v-card-title class="d-flex flex-column">
-      <span class="card-title-name text-title">
-        {{ project.name }}
-      </span>
+      <span
+        class="card-title-name text-title"
+        v-html="highlightSearch(project.name)"
+      ></span>
       <div>
         <span class="card-title-client text-card-title">
           {{ t('components.projectCard.client') }}
@@ -95,8 +96,9 @@
   import { useI18n } from '@/composables/useI18n';
   import { IProject } from '@/interfaces/project';
 
-  const { project } = defineProps<{
+  const { project, search } = defineProps<{
     project: IProject;
+    search: string;
   }>();
 
   const emit = defineEmits<{
@@ -127,6 +129,15 @@
   const displayImage = computed(() => {
     return project?.image || placeholderLink;
   });
+
+  const highlightSearch = (text: string) => {
+    if (!search) return text;
+
+    const escapedSearchTerm = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedSearchTerm})`, 'gi');
+
+    return text.replace(regex, '<span class="highlight">$1</span>');
+  };
 </script>
 <style lang="scss" scoped>
   .card-title-client-name {
@@ -134,6 +145,9 @@
     font-weight: 400;
     line-height: 20px;
     text-align: left;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
   }
 
   .card-subtitle-text {

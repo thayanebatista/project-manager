@@ -8,7 +8,8 @@
     </div>
     <div v-else>
       <ProjectsList
-        :projects="list"
+        :projects="projectsList"
+        :search="searchTerm"
         @on-toggle-favorite="project => setFavoriteProject(project)"
         @on-change-filter="orderListBy"
         @on-change-favorite="value => (filterFaves = value)"
@@ -28,26 +29,38 @@
   import ProjectsList from '@/components/projects/ProjectsList.vue';
   import ConfirmationDialog from '@/components/ConfirmationDialog.vue';
 
-  import { computed, ref } from 'vue';
+  import { ref, watch } from 'vue';
   import { storeToRefs } from 'pinia';
   import { useProjectsStore } from '@/store/projects';
   import { IFilter, IProject } from '@/interfaces/project';
 
   const projectsStore = useProjectsStore();
-  const { projects } = storeToRefs(projectsStore);
+  const { projects, filteredProjects, searchTerm } = storeToRefs(projectsStore);
+
+  const projectsList = ref<IProject[]>(projects.value);
+  const filterFaves = ref(false);
+
+  const updateProjectsList = () => {
+    let list: IProject[] = [];
+    if (filteredProjects.value) {
+      list = filteredProjects.value.length
+        ? filteredProjects.value
+        : projects.value;
+
+      if (filterFaves.value) {
+        list = list.filter(project => project.isFavorite);
+      }
+      projectsList.value = list;
+    } else {
+      projectsList.value = projects.value;
+    }
+  };
+
+  watch([projects, filteredProjects, filterFaves], updateProjectsList);
 
   const orderListBy = (filter: IFilter) => {
     projectsStore.filterList(filter.id);
   };
-
-  const filterFaves = ref();
-
-  const list = computed((): IProject[] => {
-    if (filterFaves.value) {
-      return projects.value.filter(project => project.isFavorite);
-    }
-    return projects.value;
-  });
 
   const confirmationDialog = ref();
   const deleteTarget = ref<IProject>();

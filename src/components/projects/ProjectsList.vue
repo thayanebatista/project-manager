@@ -60,6 +60,7 @@
       >
         <ProjectCard
           :project="project"
+          :search="search"
           @toggle-fave="emit('onToggleFavorite', project)"
           @delete="emit('delete', project)"
         />
@@ -88,6 +89,7 @@
 
   defineProps<{
     projects: IProject[];
+    search?: string;
   }>();
 
   const emit = defineEmits<{
