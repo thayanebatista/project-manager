@@ -32,6 +32,7 @@ export default createVuetify({
           toggle: '#FFB23D',
           'card-title': '#717171',
           'card-subtitle': '#717171',
+          'dialog-project-title': '#1C1930',
         },
       },
     },

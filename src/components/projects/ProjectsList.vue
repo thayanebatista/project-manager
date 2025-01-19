@@ -61,7 +61,7 @@
         <ProjectCard
           :project="project"
           @toggle-fave="emit('toggleFave', project)"
-          @delete-project="emit('delete', project)"
+          @delete="emit('delete', project)"
         />
       </v-col>
     </v-row>
