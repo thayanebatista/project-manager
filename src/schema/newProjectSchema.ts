@@ -44,5 +44,5 @@ export const newProjectSchema = object({
         return isValid(start) && isValid(end) && end >= start;
       },
     ),
-  image: mixed().optional(),
+  image: mixed().optional().nullable(),
 });

@@ -85,13 +85,21 @@
   const { setValue, errorMessage, errors } = useField<string | null>('image');
   const emit = defineEmits(['changePhoto']);
 
-  defineProps<{
+  const props = defineProps<{
     label?: string;
+    image?: string | null;
   }>();
 
   const file = ref<File | null>(null);
-  const avatar = ref<string | null>(null);
+  const avatar = ref<string | null>(props.image || null);
   const fileInput = ref<HTMLInputElement | null>(null);
+
+  watch(
+    () => props.image,
+    newImage => {
+      avatar.value = newImage || null;
+    },
+  );
 
   const convertToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
