@@ -12,8 +12,7 @@
       </span>
     </div>
     <v-date-input
-      v-model="field"
-      :display-value="formattedDate"
+      v-model="parsedStartDate"
       clearable
       prepend-icon=""
       placeholder="dd/mm/aaaa"
@@ -51,14 +50,11 @@
     initialValue: props.initialValue,
   });
 
-  const formattedDate = computed(() => {
-    if (!field.value) return '';
-    const date = new Date(field.value);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
+  const parsedStartDate = computed({
+    get: () => (field.value ? new Date(field.value) : null),
+    set: value => {
+      field.value = value ? value.toISOString() : '';
+    },
   });
 
   const setFieldRules = computed(() => {

@@ -136,7 +136,11 @@
     if (props.id) {
       const project = projectsStore.getProject(props.id);
       if (project) {
-        setValues(project);
+        setValues({
+          ...project,
+          startDate: project.startDate ? new Date(project.startDate) : '',
+          endDate: project.endDate ? new Date(project.endDate) : '',
+        });
       }
     }
   });
