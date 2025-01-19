@@ -26,23 +26,19 @@
   import { useDebouncer } from '@/utils/useDebouncer';
 
   const projectsStore = useProjectsStore();
-  const { projects, recentSearches } = storeToRefs(projectsStore);
+  const { recentSearches } = storeToRefs(projectsStore);
 
   const emit = defineEmits(['onFocus']);
 
   const performSearch = (search: string) => {
-    if (search.length >= 3) {
-      const filtered = projects.value.filter(item =>
-        item.name.toLowerCase().includes(search.toLowerCase()),
-      );
-      projectsStore.setFilteredProjects(filtered, search);
-
+    if (search && search.length >= 3) {
+      projectsStore.setSearchTerm(search);
       projectsStore.setRecentSearch({
         prependIcon: 'mdi-clock',
         name: search,
       });
     } else {
-      projectsStore.setFilteredProjects(null, '');
+      projectsStore.setSearchTerm('');
     }
   };
 
@@ -51,7 +47,7 @@
   const handleFocus = (value: boolean) => {
     if (!value) {
       emit('onFocus', false);
-      projectsStore.setFilteredProjects(null, '');
+      projectsStore.setSearchTerm('');
     }
   };
 </script>
