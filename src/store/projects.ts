@@ -33,5 +33,8 @@ export const useProjectsStore = defineStore('projects', {
         }
       });
     },
+    deleteProject(projectId: string) {
+      this.projects = this.projects.filter(project => project.id !== projectId);
+    },
   },
 });

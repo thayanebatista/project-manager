@@ -12,13 +12,21 @@
         @toggle-fave="project => setFavoriteProject(project)"
         @change-filter="orderListBy"
         @change-faves="filterFaves = $event"
+        @delete="project => showDialog(project)"
       />
     </div>
   </v-container>
+
+  <ConfirmationDialog
+    ref="confirmationDialog"
+    :project="deleteTarget"
+    @confirm="onConfirmDelete"
+  />
 </template>
 <script lang="ts" setup>
   import Empty from '@/components/projects/Empty.vue';
   import ProjectsList from '@/components/projects/ProjectsList.vue';
+  import ConfirmationDialog from '@/components/ConfirmationDialog.vue';
 
   import { computed, ref } from 'vue';
   import { storeToRefs } from 'pinia';
@@ -38,6 +46,19 @@
     }
     return projects.value;
   });
+
+  const confirmationDialog = ref();
+  const deleteTarget = ref<IProject>();
+
+  const showDialog = (project: IProject) => {
+    deleteTarget.value = project;
+    confirmationDialog.value.open();
+  };
+
+  const onConfirmDelete = () => {
+    projectsStore.deleteProject(deleteTarget.value.id);
+    confirmationDialog.value.close();
+  };
 
   const setFavoriteProject = (project: IProject) => {
     projectsStore.setFavoriteProject(project.id);
