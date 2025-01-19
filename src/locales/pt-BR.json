@@ -1,7 +1,15 @@
 {
   "pages": {
-    "newProject": {
-      "title": "Novo projeto"
+    "ProjectForm": {
+      "title": "Novo projeto",
+      "editTitle": "Editar projeto",
+      "form": {
+        "name": "Nome",
+        "client": "Cliente",
+        "startDate": "Data de início",
+        "endDate": "Data final",
+        "photoUploader": "Capa do Projeto"
+      }
     }
   },
   "components": {
