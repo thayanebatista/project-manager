@@ -18,7 +18,7 @@
           color="toggle"
           density="compact"
           :label="t('components.projectsList.filterFav')"
-          @update:model-value="emit('changeFaves', toggleFaves)"
+          @update:model-value="emit('onChangeFavorite', toggleFaves)"
         />
         <v-select
           v-model="filter"
@@ -33,7 +33,7 @@
           hide-details
           return-object
           :menu-icon="ChevronDownIcon"
-          @update:model-value="emit('changeFilter', filter)"
+          @update:model-value="emit('onChangeFilter', filter)"
         />
         <AppButton
           name="new-project"
@@ -60,7 +60,7 @@
       >
         <ProjectCard
           :project="project"
-          @toggle-fave="emit('toggleFave', project)"
+          @toggle-fave="emit('onToggleFavorite', project)"
           @delete="emit('delete', project)"
         />
       </v-col>
@@ -91,9 +91,9 @@
   }>();
 
   const emit = defineEmits<{
-    changeFilter: [filter: IFilter];
-    changeFaves: [faves: boolean];
-    toggleFave: [project: IProject];
+    onChangeFilter: [filter: IFilter];
+    onChangeFavorite: [faves: boolean];
+    onToggleFavorite: [project: IProject];
     delete: [project: IProject];
   }>();
 

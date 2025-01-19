@@ -97,7 +97,7 @@
   import { newProjectSchema } from '@/schema/newProjectSchema';
 
   const props = defineProps<{
-    id: string;
+    id?: string;
   }>();
 
   const router = useRouter();
@@ -117,7 +117,14 @@
   const projectsStore = useProjectsStore();
 
   const onSubmit = handleSubmit(value => {
-    projectsStore.createNewProject(value);
+    if (!value) return;
+
+    if (props.id) {
+      projectsStore.editProject(props.id, value);
+    } else {
+      projectsStore.createNewProject(value);
+    }
+
     router.push({ name: 'Home' });
   });
 
