@@ -34,7 +34,7 @@
   import { onMounted, ref, watch } from 'vue';
   import { useProjectsStore } from '@/store/projects';
   import { filterEnum, IProject } from '@/interfaces/project';
-  
+
   const projectsStore = useProjectsStore();
   const { projects, searchTerm, filteredProjects } = storeToRefs(projectsStore);
 
@@ -44,7 +44,7 @@
 
   const updateProjectsList = () => {
     let list = [...filteredProjects.value];
-    
+
     list = projectsStore.sortdAndFilteredProjects(sortOrder.value);
 
     if (filterFavorites.value) {

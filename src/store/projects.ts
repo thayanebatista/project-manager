@@ -15,26 +15,29 @@ export const useProjectsStore = defineStore('projects', {
     recentSearches: [],
   }),
   getters: {
-    filteredProjects: (state) => {
+    filteredProjects: state => {
       if (!state.searchTerm || state.searchTerm.length < 3) {
         return state.projects;
       }
       return state.projects.filter(project =>
-        project.name.toLowerCase().includes(state.searchTerm.toLowerCase())
+        project.name.toLowerCase().includes(state.searchTerm.toLowerCase()),
       );
     },
-    sortdAndFilteredProjects: (state) => {
+    sortdAndFilteredProjects: state => {
       return (filter: filterEnum) => {
-        const searchFiltered = state.searchTerm && state.searchTerm.length >= 3
-          ? state.projects.filter(project =>
-              project.name.toLowerCase().includes(state.searchTerm.toLowerCase())
-            )
-          : state.projects;
+        const searchFiltered =
+          state.searchTerm && state.searchTerm.length >= 3
+            ? state.projects.filter(project =>
+                project.name
+                  .toLowerCase()
+                  .includes(state.searchTerm.toLowerCase()),
+              )
+            : state.projects;
 
         const { filteredProjects } = useFilterList(searchFiltered, filter);
         return filteredProjects.value;
       };
-    }
+    },
   },
   actions: {
     createNewProject(project: IProject) {
@@ -73,9 +76,11 @@ export const useProjectsStore = defineStore('projects', {
       this.searchTerm = search;
     },
     setRecentSearch(search: { prependIcon: string; name: string }) {
-      if (!this.recentSearches.some(
-        recent => recent.name.toLowerCase() === search.name.toLowerCase()
-      )) {
+      if (
+        !this.recentSearches.some(
+          recent => recent.name.toLowerCase() === search.name.toLowerCase(),
+        )
+      ) {
         this.recentSearches = [search, ...this.recentSearches.slice(0, 4)];
       }
     },
