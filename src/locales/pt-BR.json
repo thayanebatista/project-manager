@@ -49,6 +49,7 @@
     "back": "Voltar",
     "cancel": "Cancelar",
     "ok": "OK",
-    "save": "Salvar"
+    "save": "Salvar",
+    "noData": "Nenhum projeto aqui"
   }
 }

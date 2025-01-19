@@ -7,11 +7,13 @@ export interface INewProjectForm {
 }
 
 export interface IProject {
+  id?: string;
   name: string;
   client: string;
   startDate: Date;
   endDate: Date;
   image?: File | null;
+  isFavorite?: boolean;
 }
 
 export interface IFilter {

@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
+import { v4 as uuidv4 } from 'uuid';
 import { filterEnum, IProject } from '@/interfaces/project';
+import { useFilterList } from '@/composables/filterList';
 
 export const useProjectsStore = defineStore('projects', {
   persist: true,
@@ -12,32 +14,22 @@ export const useProjectsStore = defineStore('projects', {
   }),
   actions: {
     createNewProject(project: IProject) {
-      this.projects.push(project);
+      const newProject = { ...project, id: uuidv4() };
+      this.projects.push(newProject);
     },
     filterList(filter: filterEnum) {
       if (this.projects.length === 0) {
         return [];
       }
-      switch (filter) {
-        case filterEnum.byAlphabetical:
-          this.projects.sort((a, b) => a.name.localeCompare(b.name));
-          break;
-        case filterEnum.bystartDate:
-          this.projects.sort(
-            (a, b) =>
-              new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
-          );
-          break;
-        case filterEnum.byEndDate:
-          this.projects.sort(
-            (a, b) =>
-              new Date(a.endDate).getTime() - new Date(b.endDate).getTime(),
-          );
-          break;
-        default:
-          this.projects.sort((a, b) => a.name.localeCompare(b.name));
-          break;
-      }
+      const { filteredProjects } = useFilterList(this.projects, filter);
+      this.projects = filteredProjects.value;
+    },
+    setFavoriteProject(id: string) {
+      this.projects.find(project => {
+        if (project.id === id) {
+          project.isFavorite = !project.isFavorite;
+        }
+      });
     },
   },
 });

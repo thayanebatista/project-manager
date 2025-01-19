@@ -11,13 +11,14 @@
       </v-col>
       <v-col class="d-flex align-center justify-end ga-8">
         <v-switch
-          v-model="toggleFav"
+          v-model="toggleFaves"
           inset
           hide-details
           min-width="150"
           color="toggle"
           density="compact"
           :label="t('components.projectsList.filterFav')"
+          @update:model-value="emit('changeFaves', toggleFaves)"
         />
         <v-select
           v-model="filter"
@@ -48,14 +49,30 @@
         </AppButton>
       </v-col>
     </v-row>
-    <v-row class="ga-14">
+    <v-row
+      v-if="projects.length"
+      class="ga-14"
+    >
       <v-col
         v-for="(project, index) in projects"
         :key="index"
         cols="auto"
       >
-        <ProjectCard :project="project" />
+        <ProjectCard
+          :project="project"
+          @toggle-fave="emit('toggleFave', project)"
+          @edit-project="redirectTo('EditProject')"
+          @delete-project="emit('delete', project)"
+        />
       </v-col>
+    </v-row>
+    <v-row v-else>
+      <v-card
+        variant="text"
+        class="d-flex flex-column align-center justify-center w-100 h-screen"
+      >
+        {{ t('common.noData') }}
+      </v-card>
     </v-row>
   </div>
 </template>
@@ -76,11 +93,14 @@
 
   const emit = defineEmits<{
     changeFilter: [filter: IFilter];
+    changeFaves: [faves: boolean];
+    toggleFave: [project: IProject];
+    delete: [project: IProject];
   }>();
 
   const { t } = useI18n();
   const router = useRouter();
-  const toggleFav = ref(false);
+  const toggleFaves = ref(false);
 
   const FilterOptions = ref<IFilter[]>([
     {
