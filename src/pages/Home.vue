@@ -9,9 +9,9 @@
     <div v-else>
       <ProjectsList
         :projects="list"
-        @toggle-fave="project => setFavoriteProject(project)"
-        @change-filter="orderListBy"
-        @change-faves="filterFaves = $event"
+        @on-toggle-favorite="project => setFavoriteProject(project)"
+        @on-change-filter="orderListBy"
+        @on-change-favorite="value => (filterFaves = value)"
         @delete="project => showDialog(project)"
       />
     </div>
@@ -39,7 +39,9 @@
   const orderListBy = (filter: IFilter) => {
     projectsStore.filterList(filter.id);
   };
+
   const filterFaves = ref();
+
   const list = computed((): IProject[] => {
     if (filterFaves.value) {
       return projects.value.filter(project => project.isFavorite);

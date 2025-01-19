@@ -4,7 +4,7 @@
       {{ label }}
     </span>
     <div
-      class="photo-uploader d-flex flex-column justify-center aling-center border border border-dashed rounded"
+      class="photo-uploader d-flex flex-column justify-center align-center border border-dashed rounded"
     >
       <v-card
         v-if="!avatar"
@@ -60,8 +60,7 @@
         v-model="file"
         accept=".png,.jpg"
         class="d-none"
-      >
-      </v-file-input>
+      />
       <span
         v-if="errors.length"
         class="text-center pa-2 text-red"
@@ -83,22 +82,44 @@
 
   const { t } = useI18n();
 
-  const { setValue, errorMessage, errors } = useField<File | null>('image');
+  const { setValue, errorMessage, errors } = useField<string | null>('image');
   const emit = defineEmits(['changePhoto']);
 
-  defineProps<{
+  const props = defineProps<{
     label?: string;
+    image?: string | null;
   }>();
 
   const file = ref<File | null>(null);
-  const avatar = ref<string | null>(null);
+  const avatar = ref<string | null>(props.image || null);
   const fileInput = ref<HTMLInputElement | null>(null);
 
-  watch(file, value => {
+  watch(
+    () => props.image,
+    newImage => {
+      avatar.value = newImage || null;
+    },
+  );
+
+  const convertToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  };
+
+  watch(file, async value => {
     if (value) {
-      avatar.value = URL.createObjectURL(value);
-      setValue(value);
-      emit('changePhoto', value);
+      try {
+        const base64 = await convertToBase64(value);
+        avatar.value = base64;
+        setValue(base64);
+        emit('changePhoto', base64);
+      } catch (error) {
+        console.error('Erro ao converter para Base64:', error);
+      }
     }
   });
 

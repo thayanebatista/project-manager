@@ -3,7 +3,7 @@ export interface INewProjectForm {
   client: string;
   startDate: Date;
   endDate: Date;
-  image?: File | null;
+  image?: string;
 }
 
 export interface IProject {
@@ -12,7 +12,7 @@ export interface IProject {
   client: string;
   startDate: Date;
   endDate: Date;
-  image?: File | null;
+  image?: string;
   isFavorite?: boolean;
 }
 

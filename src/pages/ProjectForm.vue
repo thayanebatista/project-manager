@@ -62,7 +62,9 @@
               class="d-flex justify-center w-100"
             >
               <PhotoUploader
+                v-model:image="avatar"
                 :label="t('pages.ProjectForm.form.photoUploader')"
+                @change-photo="onChangePhoto"
               />
             </v-col>
           </v-row>
@@ -90,22 +92,25 @@
 
   import { useForm } from 'vee-validate';
   import { useRouter } from 'vue-router';
-  import { computed, onMounted } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
   import { useI18n } from '@/composables/useI18n';
   import { useProjectsStore } from '@/store/projects';
   import { INewProjectForm } from '@/interfaces/project';
   import { newProjectSchema } from '@/schema/newProjectSchema';
 
   const props = defineProps<{
-    id: string;
+    id?: string;
   }>();
 
   const router = useRouter();
   const { t } = useI18n();
 
-  const { values, handleSubmit, setValues } = useForm<INewProjectForm>({
-    validationSchema: newProjectSchema,
-  });
+  const { values, handleSubmit, setValues, setFieldValue } =
+    useForm<INewProjectForm>({
+      validationSchema: newProjectSchema,
+    });
+
+  const avatar = ref<string | null>(null);
 
   const isEmptyOrUndefined = computed(() => {
     return Object.values(values).every(value => value === undefined);
@@ -116,8 +121,19 @@
 
   const projectsStore = useProjectsStore();
 
+  const onChangePhoto = (image: string | null) => {
+    setFieldValue('image', image);
+  };
+
   const onSubmit = handleSubmit(value => {
-    projectsStore.createNewProject(value);
+    if (!value) return;
+
+    if (props.id) {
+      projectsStore.editProject(props.id, value);
+    } else {
+      projectsStore.createNewProject(value);
+    }
+
     router.push({ name: 'Home' });
   });
 
@@ -129,7 +145,13 @@
     if (props.id) {
       const project = projectsStore.getProject(props.id);
       if (project) {
-        setValues(project);
+        setValues({
+          ...project,
+          startDate: project.startDate ? new Date(project.startDate) : '',
+          endDate: project.endDate ? new Date(project.endDate) : '',
+        });
+
+        avatar.value = project.image || null;
       }
     }
   });
