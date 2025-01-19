@@ -7,10 +7,8 @@ export const useProjectsStore = defineStore('projects', {
   persist: true,
   state: (): {
     projects: IProject[];
-    project: IProject | null;
   } => ({
     projects: [],
-    project: null,
   }),
   actions: {
     createNewProject(project: IProject) {
@@ -23,6 +21,10 @@ export const useProjectsStore = defineStore('projects', {
       }
       const { filteredProjects } = useFilterList(this.projects, filter);
       this.projects = filteredProjects.value;
+    },
+    getProject(id: string) {
+      const project = this.projects.find(project => project.id === id);
+      return project;
     },
     setFavoriteProject(id: string) {
       this.projects.find(project => {

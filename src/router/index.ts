@@ -27,7 +27,15 @@ const routes: RouteRecordRaw[] = [
     path: '/novo-projeto',
     name: 'NewProject',
     meta: { showAppBar: true },
-    component: () => import('@/pages/NewProject.vue'),
+    props: true,
+    component: () => import('@/pages/ProjectForm.vue'),
+  },
+  {
+    path: '/:id/editar-projeto',
+    name: 'EditProject',
+    meta: { showAppBar: true },
+    props: true,
+    component: () => import('@/pages/ProjectForm.vue'),
   },
 ];
 

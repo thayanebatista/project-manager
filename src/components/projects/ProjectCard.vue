@@ -35,7 +35,7 @@
               title="Editar"
               :prepend-icon="EditIcon"
               class="text-primary"
-              @click="emit('edit', project)"
+              @click="redirectTo('EditProject', project.id)"
             />
             <v-list-item
               title="Remover"
@@ -89,6 +89,7 @@
   import { computed } from 'vue';
   import { format } from 'date-fns';
   import { ptBR } from 'date-fns/locale';
+  import { useRouter } from 'vue-router';
   import { useI18n } from '@/composables/useI18n';
   import { IProject } from '@/interfaces/project';
 
@@ -104,6 +105,7 @@
   }>();
 
   const { t } = useI18n();
+  const router = useRouter();
   const formatDate = (date: Date) => {
     // eslint-disable-next-line @stylistic/quotes
     return format(new Date(date), "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
@@ -112,6 +114,10 @@
   const isFavorite = computed(() => {
     return props.project.isFavorite ? FilledStarIcon : EmptyStarIcon;
   });
+
+  const redirectTo = (routeName: string, prop: string) => {
+    router.push({ name: routeName, params: { id: prop } });
+  };
 
   const placeholderLink =
     'https://s3-alpha-sig.figma.com/img/f510/4fb9/73f0af4d310303c1b6b11594c35f4f67?Expires=1737936000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=GSI9zTDXVce2ndCfFM6-gnto~JpTLGAMq6-XoBYosF8W9MZaanI-gN8jV5y2TOMEvizyLzrY~HE1DpEHX3B2wSJ8oH0pXS~SfEXUPabr7uaxUyHwlrcn11rMHA1Nr4pG~gozC1qUhgmTOiRxYkkbvlXo4aa4HwiScMXW01z58H7RlTkpOpx16NuOGYfWtQ8M03oR-8hqp647SsIqWWQS2PO0uTst-b3RT8mOUtedkF0x4YswdTmzi1Zop7uCsTemPb0SePxahI1r8f7TgfqfH66JfV2zKWnRc7E3lk1nmBo0WL~AnaLYQY4dXwZZqgTTdGkn5LNYcJCkjQZJffEZxQ__';

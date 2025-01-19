@@ -61,7 +61,6 @@
         <ProjectCard
           :project="project"
           @toggle-fave="emit('toggleFave', project)"
-          @edit-project="redirectTo('EditProject')"
           @delete-project="emit('delete', project)"
         />
       </v-col>

@@ -16,7 +16,7 @@
         </v-btn>
       </div>
       <span class="text-title-page text-page-title">
-        {{ t('pages.newProject.title') }}
+        {{ pageTitle }}
       </span>
     </div>
     <v-card
@@ -33,25 +33,25 @@
               <FormImput
                 name="name"
                 required
-                label="Nome do Projeto"
+                :label="t('pages.ProjectForm.form.name')"
               />
               <FormImput
                 name="client"
                 required
-                label="Cliente"
+                :label="t('pages.ProjectForm.form.client')"
               />
               <div class="d-flex flex-inline ga-10">
                 <v-col>
                   <DateImput
                     name="startDate"
-                    label="Data de Inicio"
+                    :label="t('pages.ProjectForm.form.startDate')"
                     required
                   />
                 </v-col>
                 <v-col>
                   <DateImput
                     name="endDate"
-                    label="Data de Final"
+                    :label="t('pages.ProjectForm.form.endDate')"
                     required
                   />
                 </v-col>
@@ -61,7 +61,9 @@
               cols="6"
               class="d-flex justify-center w-100"
             >
-              <PhotoUploader label="Capa do Projeto" />
+              <PhotoUploader
+                :label="t('pages.ProjectForm.form.photoUploader')"
+              />
             </v-col>
           </v-row>
         </form>
@@ -70,7 +72,7 @@
         <AppButton
           name="new-project"
           type="submit"
-          text="Salvar"
+          :text="t('common.save')"
           class="w-50"
           :disabled="isEmptyOrUndefined"
           @click="onSubmit"
@@ -86,24 +88,31 @@
   import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon.vue';
   import PhotoUploader from '@/components/inputs/PhotoUploader.vue';
 
-  import { computed } from 'vue';
   import { useForm } from 'vee-validate';
   import { useRouter } from 'vue-router';
+  import { computed, onMounted } from 'vue';
   import { useI18n } from '@/composables/useI18n';
   import { useProjectsStore } from '@/store/projects';
   import { INewProjectForm } from '@/interfaces/project';
   import { newProjectSchema } from '@/schema/newProjectSchema';
 
+  const props = defineProps<{
+    id: string;
+  }>();
+
   const router = useRouter();
   const { t } = useI18n();
 
-  const { values, handleSubmit } = useForm<INewProjectForm>({
+  const { values, handleSubmit, setValues } = useForm<INewProjectForm>({
     validationSchema: newProjectSchema,
   });
 
   const isEmptyOrUndefined = computed(() => {
     return Object.values(values).every(value => value === undefined);
   });
+  const pageTitle = computed(() =>
+    props.id ? t('pages.ProjectForm.editTitle') : t('pages.ProjectForm.title'),
+  );
 
   const projectsStore = useProjectsStore();
 
@@ -115,4 +124,13 @@
   const redirectTo = (name: string) => {
     router.push({ name });
   };
+
+  onMounted(() => {
+    if (props.id) {
+      const project = projectsStore.getProject(props.id);
+      if (project) {
+        setValues(project);
+      }
+    }
+  });
 </script>
