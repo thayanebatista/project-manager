@@ -7,37 +7,53 @@ export const useProjectsStore = defineStore('projects', {
   persist: true,
   state: (): {
     projects: IProject[];
+    searchTerm: string;
+    recentSearches: { prependIcon: string; name: string }[];
   } => ({
     projects: [],
+    searchTerm: '',
+    recentSearches: [],
   }),
+  getters: {
+    filteredProjects: (state) => {
+      if (!state.searchTerm || state.searchTerm.length < 3) {
+        return state.projects;
+      }
+      return state.projects.filter(project =>
+        project.name.toLowerCase().includes(state.searchTerm.toLowerCase())
+      );
+    },
+    sortdAndFilteredProjects: (state) => {
+      return (filter: filterEnum) => {
+        const searchFiltered = state.searchTerm && state.searchTerm.length >= 3
+          ? state.projects.filter(project =>
+              project.name.toLowerCase().includes(state.searchTerm.toLowerCase())
+            )
+          : state.projects;
+
+        const { filteredProjects } = useFilterList(searchFiltered, filter);
+        return filteredProjects.value;
+      };
+    }
+  },
   actions: {
     createNewProject(project: IProject) {
       const newProject = { ...project, id: uuidv4() };
       this.projects.push(newProject);
-
-      const { filteredProjects } = useFilterList(
-        this.projects,
-        filterEnum.byAlphabetical,
-      );
-      this.projects = filteredProjects.value;
+      this.sortProjects(filterEnum.byAlphabetical);
     },
-    filterList(filter: filterEnum) {
-      if (this.projects.length === 0) {
-        return [];
-      }
+    sortProjects(filter: filterEnum) {
       const { filteredProjects } = useFilterList(this.projects, filter);
       this.projects = filteredProjects.value;
     },
     getProject(id: string) {
-      const project = this.projects.find(project => project.id === id);
-      return project;
+      return this.projects.find(project => project.id === id);
     },
     setFavoriteProject(id: string) {
-      this.projects.find(project => {
-        if (project.id === id) {
-          project.isFavorite = !project.isFavorite;
-        }
-      });
+      const project = this.projects.find(project => project.id === id);
+      if (project) {
+        project.isFavorite = !project.isFavorite;
+      }
     },
     editProject(projectId: string, updatedProject: Partial<IProject>) {
       const projectIndex = this.projects.findIndex(
@@ -52,6 +68,16 @@ export const useProjectsStore = defineStore('projects', {
     },
     deleteProject(projectId: string) {
       this.projects = this.projects.filter(project => project.id !== projectId);
+    },
+    setSearchTerm(search: string) {
+      this.searchTerm = search;
+    },
+    setRecentSearch(search: { prependIcon: string; name: string }) {
+      if (!this.recentSearches.some(
+        recent => recent.name.toLowerCase() === search.name.toLowerCase()
+      )) {
+        this.recentSearches = [search, ...this.recentSearches.slice(0, 4)];
+      }
     },
   },
 });

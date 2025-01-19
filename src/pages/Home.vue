@@ -8,11 +8,12 @@
     </div>
     <div v-else>
       <ProjectsList
-        :projects="list"
-        @on-toggle-favorite="project => setFavoriteProject(project)"
-        @on-change-filter="orderListBy"
-        @on-change-favorite="value => (filterFaves = value)"
-        @delete="project => showDialog(project)"
+        :projects="projectsList"
+        :search="searchTerm"
+        @on-toggle-favorite="toggleFavorite"
+        @on-change-filter="value => (sortOrder = value.id)"
+        @on-change-favorite="value => (filterFavorites = value)"
+        @delete="showDeleteDialog"
       />
     </div>
   </v-container>
@@ -20,49 +21,61 @@
   <ConfirmationDialog
     ref="confirmationDialog"
     :project="deleteTarget"
-    @confirm="onConfirmDelete"
+    @confirm="confirmDelete"
   />
 </template>
+
 <script lang="ts" setup>
   import Empty from '@/components/projects/Empty.vue';
   import ProjectsList from '@/components/projects/ProjectsList.vue';
   import ConfirmationDialog from '@/components/ConfirmationDialog.vue';
 
-  import { computed, ref } from 'vue';
   import { storeToRefs } from 'pinia';
+  import { onMounted, ref, watch } from 'vue';
   import { useProjectsStore } from '@/store/projects';
-  import { IFilter, IProject } from '@/interfaces/project';
-
+  import { filterEnum, IProject } from '@/interfaces/project';
+  
   const projectsStore = useProjectsStore();
-  const { projects } = storeToRefs(projectsStore);
+  const { projects, searchTerm, filteredProjects } = storeToRefs(projectsStore);
 
-  const orderListBy = (filter: IFilter) => {
-    projectsStore.filterList(filter.id);
+  const projectsList = ref<IProject[]>([]);
+  const filterFavorites = ref(false);
+  const sortOrder = ref<filterEnum>(filterEnum.byAlphabetical);
+
+  const updateProjectsList = () => {
+    let list = [...filteredProjects.value];
+    
+    list = projectsStore.sortdAndFilteredProjects(sortOrder.value);
+
+    if (filterFavorites.value) {
+      list = list.filter(project => project.isFavorite);
+    }
+
+    projectsList.value = list;
   };
 
-  const filterFaves = ref();
+  onMounted(() => {
+    updateProjectsList();
+  });
 
-  const list = computed((): IProject[] => {
-    if (filterFaves.value) {
-      return projects.value.filter(project => project.isFavorite);
-    }
-    return projects.value;
+  watch([projects, filteredProjects, filterFavorites, sortOrder], () => {
+    updateProjectsList();
   });
 
   const confirmationDialog = ref();
   const deleteTarget = ref<IProject>();
 
-  const showDialog = (project: IProject) => {
+  const showDeleteDialog = (project: IProject) => {
     deleteTarget.value = project;
     confirmationDialog.value.open();
   };
 
-  const onConfirmDelete = () => {
+  const confirmDelete = () => {
     projectsStore.deleteProject(deleteTarget.value.id);
     confirmationDialog.value.close();
   };
 
-  const setFavoriteProject = (project: IProject) => {
+  const toggleFavorite = (project: IProject) => {
     projectsStore.setFavoriteProject(project.id);
   };
 </script>
