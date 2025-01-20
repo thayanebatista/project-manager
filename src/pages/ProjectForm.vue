@@ -30,12 +30,12 @@
               cols="6"
               class="d-flex flex-column w-100"
             >
-              <FormImput
+              <FormInput
                 name="name"
                 required
                 :label="t('pages.ProjectForm.form.name')"
               />
-              <FormImput
+              <FormInput
                 name="client"
                 required
                 :label="t('pages.ProjectForm.form.client')"
@@ -86,7 +86,7 @@
 <script lang="ts" setup>
   import AppButton from '@/components/AppButton.vue';
   import DateImput from '@/components/inputs/DateInput.vue';
-  import FormImput from '@/components/inputs/FormInput.vue';
+  import FormInput from '@/components/inputs/FormInput.vue';
   import ArrowLeftIcon from '@/components/icons/ArrowLeftIcon.vue';
   import PhotoUploader from '@/components/inputs/PhotoUploader.vue';
 
