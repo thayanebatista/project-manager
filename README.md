@@ -49,7 +49,7 @@ Este projeto é uma aplicação web desenvolvida para gerenciar projetos e suas 
 A estrutura principal do projeto está organizada da seguinte forma:
 
 ```
-project-management/
+project-manager/
 ├── components/
 │   ├── ConfirmationDialog.vue
 │   ├── ProjectsList.vue
@@ -86,7 +86,7 @@ project-management/
 
    ```bash
    git clone git@github.com:thayanebatista/project-manager.git
-   cd project-management
+   cd project-manager
    ```
 
 2. Instale as dependências:
@@ -125,14 +125,14 @@ Este projeto está licenciado sob a [Licença MIT](LICENSE).
 > English
 
 # PROJECT MANAGER
-# Project Management Application
+# Project manager Application
 
 This project is a web application developed to manage projects and their respective actions. It includes features such as listing, favoriting, and deleting projects, using Vue 3, Pinia, and Vuetify on the front end with local storage.
 
 ## Technologies Used
 
 - **Vue 3**: A progressive JavaScript framework for building user interfaces.
-- **Pinia**: Simple and intuitive state management.
+- **Pinia**: Simple and intuitive state manager.
 - **Vuetify**: A Material Design-based component library.
 - **TypeScript**: Static typing for enhanced safety and scalability.
 
@@ -175,7 +175,7 @@ This project is a web application developed to manage projects and their respect
 The main project structure is organized as follows:
 
 ```
-project-management/
+project-manager/
 ├── components/
 │   ├── ConfirmationDialog.vue
 │   ├── ProjectsList.vue
@@ -202,7 +202,7 @@ project-management/
 - **PhotoUploader.vue**: Component for uploading images, used to define a project cover image during project creation.
 - **ConfirmationDialog.vue**: Modal for confirming actions such as project deletion.
 
-### State Management
+### State manager
 
 - **Pinia**: The `projects` store manages the list of projects and their states (favorites, filtering, etc.).
 
@@ -212,7 +212,7 @@ project-management/
 
    ```bash
    git clone git@github.com:thayanebatista/project-manager.git
-   cd project-management
+   cd project-manager
    ```
 
 2. Install dependencies:
