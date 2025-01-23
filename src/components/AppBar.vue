@@ -15,8 +15,25 @@
       </div>
     </v-app-bar-title>
     <template #append>
-      <div class="d-flex align-center pr-8 cursor-pointer">
+      <div class="d-flex align-center pr-0 ga-4 cursor-pointer">
         <SearchIcon @click="showSearch = !showSearch" />
+        <div class="d-flex align-center ga-2">
+          <v-avatar
+            v-if="authStore.isAuthenticated && authStore.user?.photoURL"
+            size="small"
+          >
+            <v-img :src="authStore.user.photoURL" />
+          </v-avatar>
+          <v-btn
+            v-if="authStore.isAuthenticated"
+            icon
+            size="small"
+            variant="text"
+            @click="handleLogout"
+          >
+            <v-icon>mdi-logout</v-icon>
+          </v-btn>
+        </div>
       </div>
     </template>
     <template #extension>
@@ -34,11 +51,19 @@
   import AppBarLogo from '@/components/icons/AppBarLogoIcon.vue';
 
   import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { useAuthStore } from '@/store/auth';
   import { useI18n } from '@/composables/useI18n';
 
   const { t } = useI18n();
 
   const showSearch = ref(false);
+  const authStore = useAuthStore();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    authStore.logout(router);
+  };
 </script>
 <style lang="scss" scoped>
   .app-bar {

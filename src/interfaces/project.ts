@@ -6,14 +6,11 @@ export interface INewProjectForm {
   image?: string;
 }
 
-export interface IProject {
-  id?: string;
-  name: string;
-  client: string;
-  startDate: Date;
-  endDate: Date;
-  image?: string;
+export interface IProject extends INewProjectForm {
+  id: string;
   isFavorite?: boolean;
+  userId: string;
+  createdAt: Date;
 }
 
 export interface IFilter {

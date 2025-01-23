@@ -95,8 +95,8 @@
   import { computed, onMounted, ref } from 'vue';
   import { useI18n } from '@/composables/useI18n';
   import { useProjectsStore } from '@/store/projects';
-  import { INewProjectForm } from '@/interfaces/project';
   import { newProjectSchema } from '@/schema/newProjectSchema';
+  import { INewProjectForm, IProject } from '@/interfaces/project';
 
   const props = defineProps<{
     id?: string;
@@ -125,25 +125,28 @@
     setFieldValue('image', image);
   };
 
-  const onSubmit = handleSubmit(value => {
+  const onSubmit = handleSubmit(async value => {
     if (!value) return;
 
-    if (props.id) {
-      projectsStore.editProject(props.id, value);
-    } else {
-      projectsStore.createNewProject(value);
+    try {
+      if (props.id) {
+        await projectsStore.editProject(props.id, value);
+      } else {
+        await projectsStore.createNewProject(value as IProject);
+      }
+      router.push({ name: 'Home' });
+    } catch (error) {
+      console.error(error);
     }
-
-    router.push({ name: 'Home' });
   });
 
   const redirectTo = (name: string) => {
     router.push({ name });
   };
 
-  onMounted(() => {
+  onMounted(async () => {
     if (props.id) {
-      const project = projectsStore.getProject(props.id);
+      const project = await projectsStore.getProject(props.id);
       if (project) {
         setValues({
           ...project,

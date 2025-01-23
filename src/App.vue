@@ -12,9 +12,20 @@
 <script lang="ts" setup>
   import AppBar from '@/components/AppBar.vue';
 
+  import { onMounted } from 'vue';
   import { useRoute } from 'vue-router';
+  import { auth } from '@/firebase/config';
+  import { useAuthStore } from '@/store/auth';
+  import { onAuthStateChanged } from 'firebase/auth';
 
   const route = useRoute();
+  const authStore = useAuthStore();
+
+  onMounted(() => {
+    onAuthStateChanged(auth, user => {
+      authStore.setUser(user);
+    });
+  });
 </script>
 <style lang="scss" scoped>
   .app {
