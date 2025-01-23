@@ -23,7 +23,7 @@
     name: string;
     text?: string;
     height?: number;
-    width?: number;
+    width?: number | string;
     disabled?: boolean;
   }>();
 </script>

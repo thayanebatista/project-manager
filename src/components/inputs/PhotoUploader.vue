@@ -118,7 +118,8 @@
         setValue(base64);
         emit('changePhoto', base64);
       } catch (error) {
-        console.error('Erro ao converter para Base64:', error);
+        setValue(null);
+        emit('changePhoto', null);
       }
     }
   });

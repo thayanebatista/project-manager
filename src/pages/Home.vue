@@ -31,6 +31,7 @@
   import ConfirmationDialog from '@/components/ConfirmationDialog.vue';
 
   import { storeToRefs } from 'pinia';
+  import { useAuthStore } from '@/store/auth';
   import { onMounted, ref, watch } from 'vue';
   import { useProjectsStore } from '@/store/projects';
   import { filterEnum, IProject } from '@/interfaces/project';
@@ -54,13 +55,27 @@
     projectsList.value = list;
   };
 
+  const authStore = useAuthStore();
+
   onMounted(() => {
     updateProjectsList();
+    if (authStore.isAuthenticated) {
+      projectsStore.fetchUserProjects();
+    }
   });
 
   watch([projects, filteredProjects, filterFavorites, sortOrder], () => {
     updateProjectsList();
   });
+
+  watch(
+    () => authStore.isAuthenticated,
+    isAuthenticated => {
+      if (isAuthenticated) {
+        projectsStore.fetchUserProjects();
+      }
+    },
+  );
 
   const confirmationDialog = ref();
   const deleteTarget = ref<IProject>();
@@ -70,9 +85,13 @@
     confirmationDialog.value.open();
   };
 
-  const confirmDelete = () => {
-    projectsStore.deleteProject(deleteTarget.value.id);
-    confirmationDialog.value.close();
+  const confirmDelete = async () => {
+    try {
+      await projectsStore.deleteProject(deleteTarget.value.id);
+      confirmationDialog.value.close();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const toggleFavorite = (project: IProject) => {
